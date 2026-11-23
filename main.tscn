@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://bg8dt8bafdd6j"]
+
+[ext_resource type="Script" uid="uid://ds4xpv64xnl00" path="res://main.gd" id="1_0xm2m"]
+[ext_resource type="Texture2D" uid="uid://cc6to084les21" path="res://Assets/ducky.png" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://cpmtybf70fpq" path="res://Player/player.gd" id="2_h2yge"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7dm0k"]
+radius = 213.02112
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t3m8t"]
+bg_color = Color(0.34656554, 0.6611485, 0.6607261, 1)
+corner_radius_top_left = 210
+corner_radius_top_right = 210
+corner_radius_bottom_right = 210
+corner_radius_bottom_left = 210
+corner_detail = 12
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t3m8t"]
+radius = 19.0
+height = 82.0
+
+[node name="Main" type="Node2D" unique_id=487849491 node_paths=PackedStringArray("planets")]
+script = ExtResource("1_0xm2m")
+planets = [NodePath("Planet/Shape")]
+
+[node name="Planet" type="StaticBody2D" parent="." unique_id=1782014202]
+
+[node name="Shape" type="CollisionShape2D" parent="Planet" unique_id=395595146]
+position = Vector2(518, 446)
+shape = SubResource("CircleShape2D_7dm0k")
+
+[node name="Panel" type="Panel" parent="Planet/Shape" unique_id=183742854]
+offset_left = -211.0
+offset_top = -212.0
+offset_right = 213.0
+offset_bottom = 211.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_t3m8t")
+
+[node name="Planet2" type="StaticBody2D" parent="." unique_id=440556601]
+
+[node name="Shape" type="CollisionShape2D" parent="Planet2" unique_id=2090418520]
+position = Vector2(213, 863)
+shape = SubResource("CircleShape2D_7dm0k")
+
+[node name="Panel" type="Panel" parent="Planet2/Shape" unique_id=1287228800]
+offset_left = -211.0
+offset_top = -212.0
+offset_right = 213.0
+offset_bottom = 211.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_t3m8t")
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=1776054695]
+position = Vector2(503, 170)
+script = ExtResource("2_h2yge")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=282973096]
+shape = SubResource("CapsuleShape2D_t3m8t")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player" unique_id=1777207347]
+scale = Vector2(0.135, 0.135)
+texture = ExtResource("1_ig7tw")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Player" unique_id=989981999]
+position = Vector2(10, -27)
+rect = Rect2(-221, -10, 477, 380)
+show_rect = false
+
+[connection signal="screen_entered" from="Player/VisibleOnScreenNotifier2D" to="Player" method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="Player/VisibleOnScreenNotifier2D" to="Player" method="_on_visible_on_screen_notifier_2d_screen_exited"]
